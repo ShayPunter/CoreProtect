@@ -1,6 +1,11 @@
 name: Manual Build
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Project branch to stamp into the build (e.g. "development")'
+        required: true
+        default: 'development'
 jobs:
   build:
     name: Build JAR
@@ -16,7 +21,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build
-        run: mvn -B package
+        run: mvn -B package -Dproject.branch="${{ inputs.branch }}"
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
