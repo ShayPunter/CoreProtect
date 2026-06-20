@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Project branch to stamp into the build (e.g. "development")'
+        description: 'Project branch to stamp into the build (e.g. "v24", "development")'
         required: true
-        default: 'development'
+        default: 'v24'
 jobs:
   build:
     name: Build JAR
