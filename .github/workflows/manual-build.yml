@@ -1,0 +1,25 @@
+name: Manual Build (self-hosted)
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build JAR
+    runs-on: [self-hosted, linux]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Build
+        run: mvn -B package
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: CoreProtect
+          path: target/*.jar
+          if-no-files-found: error
